@@ -41,3 +41,59 @@ const employees = [
 // Ask questions when you don't.
 
 console.log( employees );
+
+function evaluator(employee){
+  employee = {
+    name: employee.name,
+    bonusPercentage: bonusCalculator(employee.reviewRating,employee.employeeNumber,employee.annualSalary),
+    totalCompensation: parseInt(employee.annualSalary) * bonusCalculator(employee.reviewRating,employee.employeeNumber,employee.annualSalary) + parseInt(employee.annualSalary),
+    totalBonus: parseInt(employee.annualSalary) * bonusCalculator(employee.reviewRating,employee.employeeNumber,employee.annualSalary)
+  }
+  let info = `Name: ${employee.name}, Bonus Percentage: ${employee.bonusPercentage}, Total Compensation: ${employee.totalCompensation}, Total Bonus: ${employee.totalBonus}<br>`;
+  document.getElementById('results').innerHTML += info;
+  return info;
+};
+
+function bonusCalculator(reviewRating, employeeNumber, annualSalary) {
+  let percentage;
+  if(reviewRating < 2) {
+    percentage = 0;
+    return percentage;
+  } else if (reviewRating === 3) {
+    percentage = 0.04;
+    if(employeeNumber.length === 4){
+      percentage += 0.05;
+    }
+    if(parseInt(annualSalary) > 65000){
+      percentage -= 0.01;
+    }
+    return percentage;
+  } else if (reviewRating === 4) {
+    percentage = 0.06;
+    if(employeeNumber.length === 4){
+      percentage += 0.05;
+    }
+    if(parseInt(annualSalary) > 65000){
+      percentage -= 0.01;
+    }
+    return percentage;
+  } else{
+    percentage = 0.10;
+    if(employeeNumber.length === 4){
+      percentage += 0.05;
+    }
+    if(parseInt(annualSalary) > 65000){
+      percentage -= 0.01;
+    }
+    if(percentage > 0.13){
+      percentage = 0.13;
+    }
+    return percentage;
+  }
+}
+
+function displayer(){
+  for (let employee of employees) {
+    evaluator(employee)
+  }
+}
