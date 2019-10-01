@@ -45,11 +45,11 @@ console.log( employees );
 function evaluator(employee){
   employee = {
     name: employee.name,
-    bonusPercentage: bonusCalculator(employee.reviewRating,employee.employeeNumber,employee.annualSalary),
-    totalCompensation: parseInt(employee.annualSalary) * bonusCalculator(employee.reviewRating,employee.employeeNumber,employee.annualSalary) + parseInt(employee.annualSalary),
-    totalBonus: parseInt(employee.annualSalary) * bonusCalculator(employee.reviewRating,employee.employeeNumber,employee.annualSalary)
-  }
-  let info = `Name: ${employee.name}, Bonus Percentage: ${employee.bonusPercentage}, Total Compensation: ${employee.totalCompensation}, Total Bonus: ${employee.totalBonus}<br>`;
+    bonusPercentage: parseFloat(bonusCalculator(employee.reviewRating,employee.employeeNumber,employee.annualSalary)),
+    totalCompensation: parseFloat((employee.annualSalary) * bonusCalculator(employee.reviewRating,employee.employeeNumber,employee.annualSalary) + parseFloat(employee.annualSalary)).toFixed(2),
+    totalBonus: Math.round(parseFloat((employee.annualSalary) * bonusCalculator(employee.reviewRating,employee.employeeNumber,employee.annualSalary)).toFixed(2))
+  } 
+  let info = `Name: ${employee.name}, Bonus Percentage: ${employee.bonusPercentage}, Total Compensation: $${employee.totalCompensation}, Total Bonus: $${employee.totalBonus}<br>`;
   document.getElementById('results').innerHTML += info;
   return info;
 };
@@ -64,7 +64,7 @@ function bonusCalculator(reviewRating, employeeNumber, annualSalary) {
     if(employeeNumber.length === 4){
       percentage += 0.05;
     }
-    if(parseInt(annualSalary) > 65000){
+    if(parseFloat(annualSalary) > 65000){
       percentage -= 0.01;
     }
     return percentage;
@@ -73,7 +73,7 @@ function bonusCalculator(reviewRating, employeeNumber, annualSalary) {
     if(employeeNumber.length === 4){
       percentage += 0.05;
     }
-    if(parseInt(annualSalary) > 65000){
+    if(parseFloat(annualSalary) > 65000){
       percentage -= 0.01;
     }
     return percentage;
@@ -82,7 +82,7 @@ function bonusCalculator(reviewRating, employeeNumber, annualSalary) {
     if(employeeNumber.length === 4){
       percentage += 0.05;
     }
-    if(parseInt(annualSalary) > 65000){
+    if(parseFloat(annualSalary) > 65000){
       percentage -= 0.01;
     }
     if(percentage > 0.13){
@@ -90,10 +90,10 @@ function bonusCalculator(reviewRating, employeeNumber, annualSalary) {
     }
     return percentage;
   }
-}
+};
 
 function displayer(){
   for (let employee of employees) {
     evaluator(employee)
   }
-}
+};
